@@ -1,0 +1,34 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+</head>
+<body>
+    <input id="Message" type="text" name="name" value=""/>
+    <button type="button" id="Send">Enviar</button><br/>
+    <div id="Messages"></div>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        socket = io.connect("http://localhost:3000");
+        socket.on("connect", function () {
+        });
+        socket.on("message", function (message) {
+            document.getElementById("Messages").innerHTML += message + "<br />";
+        });
+        document.getElementById("Send").addEventListener("click", function () {
+            socket.send(document.getElementById("Message").value);
+        });
+	socket.on("resultado", function (respuesta) {
+	document.getElementById("Messages").innerHTML ="";
+	if(respuesta=="correcto"){
+	document.getElementById("Messages").innerHTML = "Se ha creado el evento exitosamente" + "<br />";}
+	else if(respuesta=="error1"){
+	document.getElementById("Messages").innerHTML = "El nombre del evento no puede ser un número" + "<br />";
+	}
+	else {
+	document.getElementById("Messages").innerHTML = "Hubor un error con la base de datos, no se pudo crear el evento" + "<br />";
+	}
+        });
+    </script>
+</body> 
+

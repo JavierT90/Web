@@ -18,6 +18,17 @@
         document.getElementById("Send").addEventListener("click", function () {
             socket.send(document.getElementById("Message").value);
         });
+	socket.on("resultado", function (respuesta) {
+	document.getElementById("Messages").innerHTML ="";
+	if(respuesta=="correcto"){
+	document.getElementById("Messages").innerHTML = "Se ha creado el evento exitosamente" + "<br />";}
+	else if(respuesta=="error1"){
+	document.getElementById("Messages").innerHTML = "El nombre del evento no puede ser un número" + "<br />";
+	}
+	else {
+	document.getElementById("Messages").innerHTML = "Hubo un error con la base de datos, no se pudo crear el evento" + "<br />";
+	}
+        });
     </script>
 </body> 
 

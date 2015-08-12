@@ -28,13 +28,19 @@ res.end(data);
 io.on('connection', function(socket){
 
  socket.on('message', function (mensaje) {
+if(isNaN(mensaje)){
 var query = connection.query('INSERT INTO p1(nombre) VALUES(?)', [mensaje], function(error, result){
    if(error){
+	socket.emit('resultado','error');
       throw error;
    }else{
+socket.emit('resultado','correcto');
       //console.log(result);
    }
  }
-);
+);}
+else{
+socket.emit('resultado','error1');
+   }
     }); 
 });
