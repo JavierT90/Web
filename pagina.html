@@ -1,0 +1,23 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+</head>
+<body>
+    <input id="Message" type="text" name="name" value=""/>
+    <button type="button" id="Send">Enviar</button><br/>
+    <div id="Messages"></div>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        socket = io.connect("http://localhost:3000");
+        socket.on("connect", function () {
+        });
+        socket.on("message", function (message) {
+            document.getElementById("Messages").innerHTML += message + "<br />";
+        });
+        document.getElementById("Send").addEventListener("click", function () {
+            socket.send(document.getElementById("Message").value);
+        });
+    </script>
+</body> 
+
