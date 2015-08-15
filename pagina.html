@@ -4,7 +4,7 @@
     <title></title>
 </head>
 <body>
-    <input id="Message" type="text" name="name" value=""/>
+    <input id="nombre_evento" type="text" name="name" value=""/>
 <form method="POST">
     <p>Escriba la fecha del evento<br>
 Año
@@ -42,6 +42,7 @@ Minutos
     <p>Selecciona uno de los eventos a eliminar <select id="Lista_eventos" size="5">
     </select> <input id="terminar_evento" type="button" value="Terminar"> </p>
 </form>
+<div id="Messages2"></div>
  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script type="text/javascript">
         socket = io.connect("http://localhost:3000");
@@ -140,7 +141,7 @@ list = document.getElementById('hora2');
 		var fecha_inicio=document.getElementById("año").value+"-"+document.getElementById("mes").value+"-"+document.getElementById("dia").value+" "+document.getElementById("hora1").value+":"+document.getElementById("minutos1").value+":00";
 		var fecha_fin=document.getElementById("año").value+"-"+document.getElementById("mes").value+"-"+document.getElementById("dia").value+" "+document.getElementById("hora2").value+":"+document.getElementById("minutos2").value+":00";
             socket.emit('insertar_evento',{
-						nombre:document.getElementById("Message").value,
+						nombre:document.getElementById("nombre_evento").value,
 						fi:fecha_inicio,
 						ff:fecha_fin});
         });
@@ -165,15 +166,21 @@ list = document.getElementById('hora2');
 
 	document.getElementById("terminar_evento").addEventListener("click", function () {
 	var list = document.getElementById('Lista_eventos');
-            socket.emit('terminar_evento',list.options[list.selectedIndex].value);
+            socket.emit('terminar_evento',{
+						id_evento_terminado:list.options[list.selectedIndex].value,
+						nombre_usuario:'user1',
+						contrasena:document.getElementById("Contrasena").value});
         });
 
 	socket.on("resultado2", function (respuesta) {
-	document.getElementById("Messages").innerHTML ="";
+	document.getElementById("Messages2").innerHTML ="";
 	if(respuesta=="correcto"){
-	document.getElementById("Messages").innerHTML = "Se ha terminado el evento exitosamente" + "<br />";}
+	document.getElementById("Messages2").innerHTML = "Se ha terminado el evento exitosamente" + "<br />";}
+	else if(respuesta=="error_contrasena"){
+	document.getElementById("Messages2").innerHTML = "La contrasena no es correcta" + "<br />";
+	}
 	else {
-	document.getElementById("Messages").innerHTML = "Hubo un error con la base de datos, no se pudo terminar el evento" + "<br />";
+	document.getElementById("Messages2").innerHTML = "Hubo un error con la base de datos, no se pudo terminar el evento" + "<br />";
 	}
 	socket.emit('solicitar_llenar');
         });

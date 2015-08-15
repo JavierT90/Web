@@ -49,7 +49,7 @@ it('Deberia dar un resultado incorrecto', function(done){
   });
 });
 
-it('Deberia dar un resultado de error por la fecha', function(done){
+it('Deberia dar un resultado de error por la fecha de los meses de 30 días', function(done){
   var client1 = io.connect(socketURL, options);
 
   client1.on('connect', function(data){
@@ -109,7 +109,11 @@ client1.on("Llenar", function (data) {
 	while(0<contador){
 	d1=data2[contador].split(",");
 	if('evento_terminado'== d1[0]){
-	client1.emit('terminar_evento',d1[1]);
+	client1.emit('terminar_evento',{
+					id_evento_terminado:d1[1],
+					nombre_usuario:'user1',
+					contrasena:'123'
+					});
 	contador=0;}
 	contador--;}
 	}
@@ -123,6 +127,44 @@ client1.on("Llenar", function (data) {
   });
 });
 
+it('No deberia terminar el evento', function(done){
+  var client1 = io.connect(socketURL, options);
 
+  client1.on('connect', function(data){
+    client1.emit('insertar_evento', {
+						nombre:'evento_terminado',
+						fi:'2019-11-24 17:15:10',
+						ff:'2019-11-24 19:15:10'});
+  });
+
+ client1.on('resultado', function(respuesta){
+      client1.emit('solicitar_llenar');
+    
+  });
+
+client1.on("Llenar", function (data) {
+	data2=data.split(";");
+	if(data2.length>0){
+	var contador=data2.length-1;
+	while(0<contador){
+	d1=data2[contador].split(",");
+	if('evento_terminado'== d1[0]){
+	client1.emit('terminar_evento',{
+					id_evento_terminado:d1[1],
+					nombre_usuario:'user1',
+					contrasena:'122'
+					});
+	contador=0;}
+	contador--;}
+	}
+        });
+
+  client1.on('resultado2', function(respuesta){
+      respuesta.should.equal("error_contrasena");
+      client1.disconnect();
+      done();
+    
+  });
+});
 });
 
