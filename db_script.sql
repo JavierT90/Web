@@ -18,7 +18,7 @@ CREATE TABLE ALUMNO(
     carnet     VARCHAR(9)     NOT NULL,
     nombre     VARCHAR(50),
     PRIMARY KEY (maestro, seccion, carnet)
-)TYPE=INNODB
+)ENGINE=INNODB
 ;
 
 
@@ -31,7 +31,7 @@ CREATE TABLE ASISTENCIA(
     id_evento    INT        NOT NULL,
     carnet       CHAR(9)    NOT NULL,
     PRIMARY KEY (id_evento, carnet)
-)TYPE=INNODB
+)ENGINE=INNODB
 ;
 
 
@@ -47,7 +47,7 @@ CREATE TABLE EVENTO(
     final        DATETIME,
     estado       INT            NOT NULL,
     PRIMARY KEY (id_evento)
-)TYPE=INNODB
+)ENGINE=INNODB
 ;
 
 
@@ -60,7 +60,7 @@ CREATE TABLE SECCION(
     maestro    VARCHAR(9)     NOT NULL,
     nombre     VARCHAR(50)    NOT NULL,
     PRIMARY KEY (maestro, nombre)
-)TYPE=INNODB
+)ENGINE=INNODB
 ;
 
 
@@ -78,7 +78,7 @@ CREATE TABLE USUARIO(
     bloqueada      INT            NOT NULL,
     libre_hasta    DATETIME,
     PRIMARY KEY (carnet)
-)TYPE=INNODB
+)ENGINE=INNODB
 ;
 
 
@@ -111,5 +111,4 @@ ALTER TABLE SECCION ADD CONSTRAINT RefUSUARIO1
     FOREIGN KEY (maestro)
     REFERENCES USUARIO(carnet)
 ;
-
 
