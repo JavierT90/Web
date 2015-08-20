@@ -49,7 +49,7 @@ it('Deberia dar un resultado incorrecto', function(done){
   });
 });
 
-it('Deberia dar un resultado de error por la fecha', function(done){
+it('Deberia dar un resultado de error por la fecha de los meses de 30 días', function(done){
   var client1 = io.connect(socketURL, options);
 
   client1.on('connect', function(data){
