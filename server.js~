@@ -44,7 +44,6 @@ var query = connection.query('SELECT id_evento,nombre FROM EVENTO where estado=1
 	}
 	socket.emit('Llenar',cadena_resultado);
          }else{
-            console.log('Registro no encontrado');
 		socket.emit('Llenar','');
          }
       }
