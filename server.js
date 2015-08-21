@@ -57,11 +57,11 @@ var error_fecha=0;
 var f01=mensaje.fi.split("-");
 var mes1=parseInt(f01[1]);
 var dia1=parseInt(f01[2]);
-if(mes1==2&&dia1>29){
-error_fecha=1;
-}
 var año1=parseInt(f01[0]);
 if(mes1==2){
+if(dia1>29){
+error_fecha=1;
+}
 if(año1%4==0){
 if(año1%100==0){
 if(año1%400==0){

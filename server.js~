@@ -60,6 +60,31 @@ var dia1=parseInt(f01[2]);
 if(mes1==2&&dia1>29){
 error_fecha=1;
 }
+var año1=parseInt(f01[0]);
+if(mes1==2){
+if(año1%4==0){
+if(año1%100==0){
+if(año1%400==0){
+//año bisiesto
+}
+else{
+//año no bisiesto
+if(dia1>28){
+error_fecha=1;
+}
+}
+}
+else{
+//año bisiesto
+}
+}
+else{
+//año no bisiesto
+if(dia1>28){
+error_fecha=1;
+}
+}
+}
 if((mes1==4||mes1==6||mes1==9||mes1==11)&&dia1>30){
 error_fecha=1;
 }
