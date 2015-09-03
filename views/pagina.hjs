@@ -25,27 +25,14 @@
 	      <input id="nombre_evento" type="text" name="name" placeholder="Nombre del evento" class="form-control">
 	    </div>
 	    <div class="form-group">
-	      <span class="help-block">Escriba la fecha del evento</span>
-	      <label for="año">Año</label>
-	      <select id="año" size="1"></select>
-	      <label for="mes">Mes</label>
-	      <select id="mes" size="1"></select>
-	      <label for="dia">Día</label>
-	      <select id="dia" size="1"></select>
+	      <label for="fecha1">Fecha de inicio</label>
+	      <input id="fecha1" type="datetime-local" class="form-control">
+	      <span class="help-block">Escriba la fecha y hora de inicio del evento</span>	      
 	    </div>
 	    <div class="form-group">
-	      <span class="help-block">Escriba la hora de inicio del evento</span>
-	      <label for="hora1">Hora</label>
-	      <select id="hora1" size="1"></select>
-	      <label for="minutos1">Minutos</label>
-	      <select id="minutos1" size="1"></select>
-	    </div>
-	    <div class="form-group">
-	      <span class="help-block">Escriba la hora de fin del  evento</span>
-	      <label for="hora2">Hora</label>
-	      <select id="hora2" size="1"></select>
-	      <label for="minutos2">Minutos</label>
-	      <select id="minutos2" size="1"></select>
+	      <label for="fecha2">Fecha de fin</label>
+	      <input id="fecha2" type="datetime-local" class="form-control">
+	      <span class="help-block">Escriba la fecha y hora de fin del evento</span>	      
 	    </div>
 	    <button type="button" id="Send" class="btn btn-block btn-primary">Enviar</button>
 	  </form>
@@ -55,13 +42,13 @@
 	  <h3>Terminar Evento</h3>
 	  <form method="POST" role="form">
 	    <div class="form-group">
-	      <span class="help-block">Seleccione el evento a eliminar</span>
+	      <span class="help-block">Seleccione el evento a terminar</span>
 	      <select id="Lista_eventos" class="form-control"></select>
 	    </div>
 	    <div class="form-group">
 	      <label for="Contrasena">Contraseña</label>
 	      <input id="Contrasena" type="password" name="name" class="form-control">
-	      <span class="help-block">Para terminar un evento tiene que escribir su contraseña</span>
+	      <span class="help-block">Para terminar un evento debe confirmar su contraseña</span>
 	    </div>
 	    <input id="terminar_evento" type="button" value="Terminar" class="btn btn-block btn-danger">
 	  </form>
