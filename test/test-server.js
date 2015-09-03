@@ -1,7 +1,7 @@
 var should = require('should');
 var io = require('socket.io-client');
 
-var socketURL = 'http://0.0.0.0:3000';
+var socketURL = 'http://0.0.0.0:80';
 
 var options ={
   transports: ['websocket'],
@@ -188,5 +188,25 @@ client1.on("Llenar", function (data) {
     
   });
 });
+
+it('Comprobar si se lee el formato de la fecha correctamente', function(done){
+  var client1 = io.connect(socketURL, options);
+
+  client1.on('connect', function(data){
+    client1.emit('insertar_evento', {
+						nombre:'evento_prueba',
+						fi:'2019-11-24 17:15:10',
+						ff:'2019-11-24 19:15:10'});
+
+  });
+
+  client1.on('resultado', function(respuesta){
+      respuesta.should.equal("correcto");
+      client1.disconnect();
+      done();
+    
+  });
+});
+
 });
 
