@@ -25,23 +25,37 @@ router.get('/', function(req, res, next) {
         }
     });
     
+    var result = null;
+    
     switch(query['op']){
         case 'asistir':
             console.log('asistir');
             var cadena = 'INSERT INTO ASISTENCIA VALUES('+query['evento']+',\''+query['carnet']+'\');';
             connection.query(cadena, function(err,result){
                 if(err){
-                    console.log('error!');
+                    res.render('android', { response: JSON.stringify({resultado: 'Error'}) });
                 }else{
-                    console.log('finalizado');
+                    res.render('android', { response: JSON.stringify({resultado: 'Exito'}) });
                 }
             });
-            br
+            break;
+        case 'eventos':
+            console.log('eventos');
+            var cadena = 'SELECT E.id_evento, E.nombre, E.inicio, E.final, E.estado FROM EVENTO E WHERE E.estado = 1;';
+            connection.query(cadena, function(err,result){
+                if(err){
+                    res.render('android', { response: JSON.stringify({resultado: 'Error'}) });
+                }else{
+                    res.render('android', { response: JSON.stringify({resultado: 'Exito'}) });
+                }
+            });
+            break;
+            
         default:
-            console.log('Opcion no valida');
+            result = 'Invalido';
+            res.render('android', { response: result });
     }
     
-    res.render('android', { response: 'Probando' });
 });
 
 module.exports = router;
